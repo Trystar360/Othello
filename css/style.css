@@ -1,0 +1,8 @@
+.gameBoard{
+  background: Green;
+  margin: auto;
+}
+#title{
+  font-family: 'Bungee', cursive;
+  text-align: center;
+}
