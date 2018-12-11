@@ -1,9 +1,29 @@
+/* COLORS
+Background: 04AD3C
+Lighter: 1DE660
+Darker: 02531D
+ */
 .gameBoard{
-  background: Green;
+  background: #04AD3C;
   margin: auto;
 }
 #title{
   font-family: 'Bungee', cursive;
   text-align: center;
+  font-size: 40px;
   letter-spacing: 6px;
+}
+table{
+  border-collapse: collapse;
+  
+}
+table, th, td {
+  border: 1px solid black;
+}
+
+.cell{
+  transition: background 1s;
+}
+.cell:hover{
+  background: #1DE660;
 }
