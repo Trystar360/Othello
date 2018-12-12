@@ -224,13 +224,13 @@ function lookD(cell){
   var startCol = curCheckCol;
   var failed = false;
   for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol < 8; curCheckRow++ && curCheckCol++){
-    console.log(alph[curCheckRow] + curCheckCol);
     var curCell = alph[curCheckRow] + curCheckCol;
     if(!isPiece(curCell)){failed = true}else{
       if(!failed){
         if(sameColor(curCell)){
           for(var i = 0;i < da.length; i ++){
             var pieceColor = getColor(da[i]);
+            console.log("dr Flipped " + da[i]);
             if(pieceColor == "white"){
               $("#"+da[i]).removeClass("white");
               $("#"+da[i]).addClass("black");
@@ -241,7 +241,6 @@ function lookD(cell){
             
           }
           failed = true;
-          console.log(alph[curCheck] + getCol(cell));
         }else if(!sameColor(curCell)){
           da.push(curCell);
         }
@@ -252,20 +251,20 @@ function lookD(cell){
       
   }
 //------------------------------------------------------------------\\
- //look down Right
-  var curCheckRow = parseInt(curRowNum) + 1;
+ //look Up Right
+  var curCheckRow = parseInt(curRowNum) - 1;
   var curCheckCol = parseInt(getCol(cell)) +1;
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
-  for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol < 8; curCheckRow++ && curCheckCol++){
-    console.log(alph[curCheckRow] + curCheckCol);
-    var curCell = alph[curCheckRow] + curCheckCol;
+  for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol < 8; curCheckRow-- && curCheckCol++){
+        var curCell = alph[curCheckRow] + curCheckCol;
     if(!isPiece(curCell)){failed = true}else{
       if(!failed){
         if(sameColor(curCell)){
           for(var i = 0;i < da.length; i ++){
             var pieceColor = getColor(da[i]);
+            console.log("dr Flipped " + da[i]);
             if(pieceColor == "white"){
               $("#"+da[i]).removeClass("white");
               $("#"+da[i]).addClass("black");
@@ -276,7 +275,6 @@ function lookD(cell){
             
           }
           failed = true;
-          console.log(alph[curCheck] + getCol(cell));
         }else if(!sameColor(curCell)){
           da.push(curCell);
         }
@@ -286,6 +284,79 @@ function lookD(cell){
       }
       
   }
+
+  //------------------------------------------------------------------\\
+
+  //look Up Left
+  var curCheckRow = parseInt(curRowNum) - 1;
+  var curCheckCol = parseInt(getCol(cell)) -1;
+  var startRow = curCheckRow;
+  var startCol = curCheckCol;
+  var failed = false;
+  for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol -1; curCheckRow-- && curCheckCol--){
+    var curCell = alph[curCheckRow] + curCheckCol;
+    if(!isPiece(curCell)){failed = true}else{
+      if(!failed){
+        if(sameColor(curCell)){
+          for(var i = 0;i < da.length; i ++){
+            var pieceColor = getColor(da[i]);
+            console.log("dr Flipped " + da[i]);
+            if(pieceColor == "white"){
+              $("#"+da[i]).removeClass("white");
+              $("#"+da[i]).addClass("black");
+            }else{
+              $("#"+da[i]).removeClass("black");
+              $("#"+da[i]).addClass("white");
+            }
+            
+          }
+          failed = true;
+        }else if(!sameColor(curCell)){
+          da.push(curCell);
+        }
+      }else{
+        failed = true;
+      }
+      }
+      
+  }
+
+  //------------------------------------------------------------------\\
+ //look Down Left
+ var curCheckRow = parseInt(curRowNum) + 1;
+ var curCheckCol = parseInt(getCol(cell)) -1;
+ var startRow = curCheckRow;
+ var startCol = curCheckCol;
+ var failed = false;
+ for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol> -1; curCheckRow++ && curCheckCol--){
+   var curCell = alph[curCheckRow] + curCheckCol;
+   if(!isPiece(curCell)){failed = true}else{
+     if(!failed){
+       if(sameColor(curCell)){
+         for(var i = 0;i < da.length; i ++){
+           var pieceColor = getColor(da[i]);
+           console.log("dr Flipped " + da[i]);
+           if(pieceColor == "white"){
+             $("#"+da[i]).removeClass("white");
+             $("#"+da[i]).addClass("black");
+           }else{
+             $("#"+da[i]).removeClass("black");
+             $("#"+da[i]).addClass("white");
+           }
+           
+         }
+         failed = true;
+       }else if(!sameColor(curCell)){
+         da.push(curCell);
+       }
+     }else{
+       failed = true;
+     }
+     }
+     
+ }
+
+ //------------------------------------------------------------------\\
 }
 function rowNumber(row){
   for(var i = 0; i < alph.length; i++){
