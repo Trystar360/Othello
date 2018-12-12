@@ -57,3 +57,10 @@ when black player clicks
 .black:hover{
   background: black;
 }
+
+#title .gameBoard{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

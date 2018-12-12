@@ -1,5 +1,5 @@
 var playerColor = "white";
-var isTesting = true;
+var isTesting = false;
 var w = window.innerWidth;
 var h = window.innerHeight;
 gameDim = 0;
@@ -8,7 +8,7 @@ if(w < h){
 }else{
   gameDim = h;
 }
-boardDim = gameDim - (80 );
+boardDim = gameDim - (gameDim * .15);
 $(".gameBoard").width(boardDim);
 $(".gameBoard").height(boardDim);
 
