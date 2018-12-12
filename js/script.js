@@ -1,4 +1,5 @@
 var playerColor = "white";
+var isTesting = true;
 var w = window.innerWidth;
 var h = window.innerHeight;
 gameDim = 0;
@@ -70,7 +71,11 @@ function tableClick(){
 }
 var found = false;
 function look(cell){
-  found = false;
+  if(isTesting == false)
+    found = false;
+  else  
+  found = true;
+  
   lookH(cell);
   lookV(cell);
   lookD(cell);
@@ -274,6 +279,7 @@ function lookD(cell){
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
+  da = [];
   for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol < 8; curCheckRow-- && curCheckCol++){
         var curCell = alph[curCheckRow] + curCheckCol;
     if(!isPiece(curCell)){failed = true}else{
@@ -303,8 +309,11 @@ function lookD(cell){
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
-  for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol -1; curCheckRow-- && curCheckCol--){
+  da = [];
+  for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol > -1; curCheckRow-- && curCheckCol--){
+    console.log(curCheckRow, curCheckCol);
     var curCell = alph[curCheckRow] + curCheckCol;
+    console.log(curCell);
     if(!isPiece(curCell)){failed = true}else{
       if(!failed){
         if(sameColor(curCell)){
