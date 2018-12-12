@@ -20,7 +20,6 @@ function makeTable(x){
   //creates x rows
   for(var i = 0; i < x; i++){
   $("#gameTable").append('<tr class="row" id="row' +alph[i]+ '"> </tr>');
-  console.log('<tr id="cell' +alph[i]+ '> </tr>');
   }
   //creates x cells inside the rows
   for(var j = 0; j < x; j++){
@@ -67,6 +66,7 @@ function tableClick(){
 function look(cell){
   lookH(cell);
   lookV(cell);
+  lookD(cell);
 }
 
 function lookH(cell){
@@ -98,7 +98,6 @@ function lookH(cell){
           console.log(getRow(cell)+curCheck);
         }else if(!sameColor(getRow(cell)+curCheck)){
           ra.push(getRow(cell)+curCheck);
-          console.log("Ayy");
         }
       }else{
         failed = true;
@@ -131,7 +130,6 @@ function lookH(cell){
             console.log(getRow(cell)+curCheck);
           }else if(!sameColor(getRow(cell)+curCheck)){
             ra.push(getRow(cell)+curCheck);
-            console.log("Ayy");
           }
         }else{
           failed = true;
@@ -172,7 +170,6 @@ function lookV(cell){
           console.log(alph[curCheck] + getCol(cell));
         }else if(!sameColor(alph[curCheck] + getCol(cell))){
           da.push(alph[curCheck] + getCol(cell));
-          console.log("Ayy");
         }
       }else{
         failed = true;
@@ -205,7 +202,6 @@ function lookV(cell){
             console.log(alph[curCheck] + getCol(cell));
           }else if(!sameColor(alph[curCheck] + getCol(cell))){
             da.push(alph[curCheck] + getCol(cell));
-            console.log("Ayy");
           }
         }else{
           failed = true;
@@ -213,6 +209,83 @@ function lookV(cell){
         }
         
     }
+}
+
+function lookD(cell){
+  var ua = [];
+  var da = [];
+
+  var curRowNum = rowNumber(cell.substring(0,1))
+
+  //look down Right
+  var curCheckRow = parseInt(curRowNum) + 1;
+  var curCheckCol = parseInt(getCol(cell)) +1;
+  var startRow = curCheckRow;
+  var startCol = curCheckCol;
+  var failed = false;
+  for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol < 8; curCheckRow++ && curCheckCol++){
+    console.log(alph[curCheckRow] + curCheckCol);
+    var curCell = alph[curCheckRow] + curCheckCol;
+    if(!isPiece(curCell)){failed = true}else{
+      if(!failed){
+        if(sameColor(curCell)){
+          for(var i = 0;i < da.length; i ++){
+            var pieceColor = getColor(da[i]);
+            if(pieceColor == "white"){
+              $("#"+da[i]).removeClass("white");
+              $("#"+da[i]).addClass("black");
+            }else{
+              $("#"+da[i]).removeClass("black");
+              $("#"+da[i]).addClass("white");
+            }
+            
+          }
+          failed = true;
+          console.log(alph[curCheck] + getCol(cell));
+        }else if(!sameColor(curCell)){
+          da.push(curCell);
+        }
+      }else{
+        failed = true;
+      }
+      }
+      
+  }
+//------------------------------------------------------------------\\
+ //look down Right
+  var curCheckRow = parseInt(curRowNum) + 1;
+  var curCheckCol = parseInt(getCol(cell)) +1;
+  var startRow = curCheckRow;
+  var startCol = curCheckCol;
+  var failed = false;
+  for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol < 8; curCheckRow++ && curCheckCol++){
+    console.log(alph[curCheckRow] + curCheckCol);
+    var curCell = alph[curCheckRow] + curCheckCol;
+    if(!isPiece(curCell)){failed = true}else{
+      if(!failed){
+        if(sameColor(curCell)){
+          for(var i = 0;i < da.length; i ++){
+            var pieceColor = getColor(da[i]);
+            if(pieceColor == "white"){
+              $("#"+da[i]).removeClass("white");
+              $("#"+da[i]).addClass("black");
+            }else{
+              $("#"+da[i]).removeClass("black");
+              $("#"+da[i]).addClass("white");
+            }
+            
+          }
+          failed = true;
+          console.log(alph[curCheck] + getCol(cell));
+        }else if(!sameColor(curCell)){
+          da.push(curCell);
+        }
+      }else{
+        failed = true;
+      }
+      }
+      
+  }
 }
 function rowNumber(row){
   for(var i = 0; i < alph.length; i++){
@@ -225,6 +298,11 @@ console.log("inputr to rowNumber Doesnt match a letter");
 }
 
 function getColor(cell){
+  if($("#"+cell).hasClass("white")){
+    return "white";
+  }else if($("#"+cell).hasClass("black")){
+    return "black";
+  }
   
  return $("#"+cell).attr("class").substring(5,10);
 }
