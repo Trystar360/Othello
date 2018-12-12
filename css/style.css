@@ -3,27 +3,55 @@ Background: 04AD3C
 Lighter: 1DE660
 Darker: 02531D
  */
+ body{
+   background: #B2FFB3;
+ }
 .gameBoard{
-  background: #04AD3C;
+
   margin: auto;
+  
 }
 #title{
   font-family: 'Bungee', cursive;
   text-align: center;
-  font-size: 40px;
-  letter-spacing: 6px;
+  
+  transition: font-size 2s;
+  transition: padding-left 2s;
+  transition: letter-spacing 2s;
+  
+  margin:0px;
 }
 table{
   border-collapse: collapse;
-  
-}
-table, th, td {
-  border: 1px solid black;
+  border-radius:30%;
 }
 
 .cell{
   transition: background 1s;
+  background: #04AD3C;
+  border-radius:30%;
+  border: 1px;
 }
 .cell:hover{
   background: #1DE660;
+}
+
+/* COLORS
+when white player clicks
+ */
+.white{
+  
+  background: white;
+}
+.white:hover{
+  background: white;
+}
+/* COLORS
+when black player clicks
+ */
+.black{
+  background: black;
+}
+.black:hover{
+  background: black;
 }
