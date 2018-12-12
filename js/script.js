@@ -53,6 +53,12 @@ function tableClick(){
         $(this).addClass("black piece");
       }
       look($(this).attr("id"));
+
+      if(playerColor == "white"){
+        playerColor = "black";
+      }else{
+        playerColor = "white";
+      }
     }
     
   })
@@ -80,11 +86,11 @@ function lookH(cell){
           for(var i = 0;i < ra.length; i ++){
             var pieceColor = getColor(ra[i]);
             if(pieceColor == "white"){
-              $("#"+ra[i].substring(1)).removeClass("white");
-              $("#"+ra[i].substring(1)).addClass("black");
+              $("#"+ra[i]).removeClass("white");
+              $("#"+ra[i]).addClass("black");
             }else{
-              $("#"+ra[i].substring(1)).removeClass("black");
-              $("#"+ra[i].substring(1)).addClass("white");
+              $("#"+ra[i]).removeClass("black");
+              $("#"+ra[i]).addClass("white");
             }
             
           }
@@ -154,11 +160,11 @@ function lookV(cell){
           for(var i = 0;i < da.length; i ++){
             var pieceColor = getColor(da[i]);
             if(pieceColor == "white"){
-              $("#"+da[i].substring(1)).removeClass("white");
-              $("#"+da[i].substring(1)).addClass("black");
+              $("#"+da[i]).removeClass("white");
+              $("#"+da[i]).addClass("black");
             }else{
-              $("#"+da[i].substring(1)).removeClass("black");
-              $("#"+da[i].substring(1)).addClass("white");
+              $("#"+da[i]).removeClass("black");
+              $("#"+da[i]).addClass("white");
             }
             
           }
