@@ -20,6 +20,8 @@ Darker: 02531D
   transition: letter-spacing 2s;
   
   margin:0px;
+  transition: color 1s;
+  color: white;
 }
 table{
   border-collapse: collapse;
