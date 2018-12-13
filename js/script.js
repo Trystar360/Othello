@@ -2,6 +2,7 @@ var playerColor = "white";
 var isTesting = false;
 var w = window.innerWidth;
 var h = window.innerHeight;
+switchA = [];
 gameDim = 0;
 if(w < h){
   gameDim = w;
@@ -48,7 +49,9 @@ $("#E4").addClass("white piece");
 makeTable(8);
 tableClick()
 function tableClick(){
+  
   $(".cell").click(function(){
+    console.log("-----------new turn------------")
     if(!$(this).hasClass("piece")){
       if(playerColor == "white"){
         $(this).addClass("white piece");
@@ -105,15 +108,7 @@ function lookH(cell){
         if(sameColor(getRow(cell)+curCheck)){
           console.log(ra);
           for(var i = 0;i < ra.length; i ++){
-            found = true;
-            var pieceColor = getColor(ra[i]);
-            if(pieceColor == "white"){
-              $("#"+ra[i]).removeClass("white");
-              $("#"+ra[i]).addClass("black");
-            }else{
-              $("#"+ra[i]).removeClass("black");
-              $("#"+ra[i]).addClass("white");
-            }
+            switchColor(ra[i]);
             
           }
           failed = true;
@@ -139,16 +134,7 @@ function lookH(cell){
         if(!failed){
           if(sameColor(getRow(cell)+curCheck)){
             for(var i = 0;i < ra.length; i ++){
-              found = true;
-              var pieceColor = getColor(ra[i]);
-              if(pieceColor == "white"){
-                
-                $("#"+ra[i]).removeClass("white");
-                $("#"+ra[i]).addClass("black");
-              }else{
-                $("#"+ra[i]).removeClass("black");
-                $("#"+ra[i]).addClass("white");
-              }
+              switchColor(ra[i]);
               
             }
             failed = true;
@@ -184,16 +170,7 @@ function lookV(cell){
         if(sameColor(alph[curCheck] + getCol(cell))){
           for(var i = 0;i < da.length; i ++){
             console.log("flipping " + da[i] + "with d");
-            found = true;
-            var pieceColor = getColor(da[i]);
-            if(pieceColor == "white"){
-              $("#"+da[i]).removeClass("white");
-              $("#"+da[i]).addClass("black");
-            }else{
-              $("#"+da[i]).removeClass("black");
-              $("#"+da[i]).addClass("white");
-            }
-            
+            switchColor(da[i]);
           }
           failed = true;
           console.log(alph[curCheck] + getCol(cell));
@@ -219,15 +196,7 @@ function lookV(cell){
             
             for(var i = 0;i < da.length; i ++){
               console.log("flipping " + da[i] + "with u");
-              found = true;
-              var pieceColor = getColor(da[i]);
-              if(pieceColor == "white"){
-                $("#"+da[i]).removeClass("white");
-                $("#"+da[i]).addClass("black");
-              }else{
-                $("#"+da[i]).removeClass("black");
-                $("#"+da[i]).addClass("white");
-              }
+              switchColor(da[i]);
               
             }
             failed = true;
@@ -255,24 +224,9 @@ function lookD(cell){
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
-  da = [];
+  switchA = [];
   for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol < 8; curCheckRow++ && curCheckCol++){
-    var curCell = alph[curCheckRow] + curCheckCol;
-    if(!isPiece(curCell)){failed = true}else{
-      if(!failed){
-        if(sameColor(curCell)){
-          for(var i = 0;i < da.length; i ++){
-            switchColor(da[i]);
-            console.log("flipped " + da[i] + " dr");
-          }
-          failed = true;
-        }else if(!sameColor(curCell)){
-          da.push(curCell);
-        }
-      }else{
-        failed = true;
-      }
-      }
+    search(alph[curCheckRow],curCheckCol);
       
   }
 //------------------------------------------------------------------\\
@@ -282,26 +236,9 @@ function lookD(cell){
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
-  da = [];
+  switchA = [];
   for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol < 8; curCheckRow-- && curCheckCol++){
-        var curCell = alph[curCheckRow] + curCheckCol;
-    if(!isPiece(curCell)){failed = true}else{
-      if(!failed){
-        if(sameColor(curCell)){
-          for(var i = 0;i < da.length; i ++){
-            switchColor(da[i]);
-            console.log("flipped " + da[i] + " ur");
-          }
-          failed = true;
-        }else if(!sameColor(curCell)){
-          da.push(curCell);
-        }
-      }else{
-        failed = true;
-        
-      }
-      }
-      
+    search(alph[curCheckRow],curCheckCol);
   }
 
   //------------------------------------------------------------------\\
@@ -312,26 +249,9 @@ function lookD(cell){
   var startRow = curCheckRow;
   var startCol = curCheckCol;
   var failed = false;
-  da = [];
+  switchA = [];
   for(curCheckRow && curCheckCol; curCheckRow > -1 && curCheckCol > -1; curCheckRow-- && curCheckCol--){
-    console.log(curCheckRow, curCheckCol);
-    var curCell = alph[curCheckRow] + curCheckCol;
-    console.log(curCell);
-    if(!isPiece(curCell)){failed = true}else{
-      if(!failed){
-        if(sameColor(curCell)){
-          for(var i = 0;i < da.length; i ++){
-            switchColor(da[i]);
-            console.log("flipped " + da[i] + " ul");
-          }
-          failed = true;
-        }else if(!sameColor(curCell)){
-          da.push(curCell);
-        }
-      }else{
-        failed = true;
-      }
-      }
+    search(alph[curCheckRow],curCheckCol);
       
   }
 
@@ -342,25 +262,11 @@ function lookD(cell){
  var startRow = curCheckRow;
  var startCol = curCheckCol;
  var failed = false;
- da = [];
+ switchA = [];
+ 
  for(curCheckRow && curCheckCol; curCheckRow < 8 && curCheckCol> -1; curCheckRow++ && curCheckCol--){
-   var curCell = alph[curCheckRow] + curCheckCol;
-   if(!isPiece(curCell)){failed = true}else{
-     if(!failed){
-       if(sameColor(curCell)){
-         for(var i = 0;i < da.length; i ++){
-           switchColor(da[i]);
-           console.log(da);
-           console.log("flipped " + da[i] + " dl");
-         }
-         failed = true;
-       }else if(!sameColor(curCell)){
-         da.push(curCell);
-       }
-     }else{
-       failed = true;
-     }
-     }
+   search(alph[curCheckRow],curCheckCol);
+   console.log("shouldHappen1")
      
  }
 
@@ -420,4 +326,28 @@ function openSpots(){
       
     }
   }
+}
+
+function search(row, col){
+  failed = false;
+  //console.log(row+col);
+  var curCell = row + col;
+  //console.log(curCell);
+   if(!isPiece(curCell)){failed = true}else{
+     if(!failed){
+       if(sameColor(curCell)){
+         
+         for(var i = 0;i < switchA.length; i ++){
+           switchColor(switchA[i]);
+           console.log("should have flipped " + switchA[i]);
+         }
+         failed = true;
+       }else if(!sameColor(curCell)){
+         switchA.push(curCell);
+         
+       }
+     }else{
+       failed = true;
+     }
+     }
 }
