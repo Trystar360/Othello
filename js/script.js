@@ -130,6 +130,7 @@ function lookH(cell){
   }
 
     //look Left
+    ra = []; 
     var curCheck = parseInt(getCol(cell)) - 1;
     var failed = false;
     for(curCheck; curCheck >-1; curCheck--){
@@ -182,7 +183,7 @@ function lookV(cell){
       if(!failed){
         if(sameColor(alph[curCheck] + getCol(cell))){
           for(var i = 0;i < da.length; i ++){
-
+            console.log("flipping " + da[i] + "with d");
             found = true;
             var pieceColor = getColor(da[i]);
             if(pieceColor == "white"){
@@ -207,7 +208,7 @@ function lookV(cell){
   }
 
     //look up
-
+    da = [];
      curCheck = parseInt(curRowNum) - 1;
      failed = false;
     for(curCheck; curCheck > -1; curCheck--){
@@ -215,7 +216,9 @@ function lookV(cell){
       if(!isPiece(curCell)){failed = true}else{
         if(!failed){
           if(sameColor(alph[curCheck] + getCol(cell))){
+            
             for(var i = 0;i < da.length; i ++){
+              console.log("flipping " + da[i] + "with u");
               found = true;
               var pieceColor = getColor(da[i]);
               if(pieceColor == "white"){
