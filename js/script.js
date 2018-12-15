@@ -80,15 +80,6 @@ function tableClick(){
         $("#title").css("color", "white");
       }
     }
-    for(var i = 0; i < 8; i++){
-      for(var j = 0; j < 8; j++){
-        var cell = alph[i] + j;
-        if($("#"+cell).hasClass("possible")){
-          $("#"+cell).removeClass("possible");
-        }
-      }
-    }
-    
     openSpots();
   })
 }
@@ -262,6 +253,14 @@ function switchColor(cell){
 function openSpots(){
   for(var i = 0; i < 8; i++){
     for(var j = 0; j < 8; j++){
+      var cell = alph[i] + j;
+      if($("#"+cell).hasClass("possible")){
+        $("#"+cell).removeClass("possible");
+      }
+    }
+  }
+  for(var i = 0; i < 8; i++){
+    for(var j = 0; j < 8; j++){
       if(!$("#"+alph[i] + j).hasClass("piece")){
         look(alph[i] + j, false);
       }
@@ -288,6 +287,7 @@ function test(start, cell, event, real){
      if(!failed){
       //console.log(getColor(curCell));
        if(sameColor(curCell)){
+         
         if(real){
          for(var i = 0;i < array.length; i ++){
            switchColor(array[i]);
@@ -295,11 +295,15 @@ function test(start, cell, event, real){
          }
          failed = true;
         }else{
+          failed = true;
           if(array.length > 0){
             $("#"+start).addClass("possible");
+            console.log("valid move at " + start + " " + event + " , " + array+ ", " + getColor(array[0]));
+            
           }
         }
-       }else if(!sameColor(curCell)){
+       }else{
+         console.log("Just pushed " + curCell + ", " + getColor(curCell) + " from" + start);
          array.push(curCell);
        }
      }else{
