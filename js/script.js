@@ -1,5 +1,9 @@
+//the color of the current player
 var playerColor = "white";
-var isTesting = true;
+//true for testing
+var isTesting = false;
+
+var start = true;
 var w = window.innerWidth;
 var h = window.innerHeight;
 var gameDim = 0;
@@ -46,13 +50,6 @@ $("table").height(boardDim);
 $("table").width(boardDim);
 $(".cell").height(cellSize - 3.125);
 $(".cell").width(cellSize);
-if(!isTesting){
-  $("#D3").addClass("white piece flipped");
-  $("#D4").addClass("black piece flipped");
-  $("#E3").addClass("black piece flipped");
-  $("#E4").addClass("white piece flipped");
-  openSpots();
-}
 
 
 }
@@ -62,7 +59,7 @@ function tableClick(){
   
   $(".cell").click(function(){
     array = [];
-    console.log("-----------new turn-----------");
+    console.log("-----------new "+ playerColor + " turn-----------");
     if(!$(this).hasClass("piece")){
       if(playerColor == "white"){
         $(this).addClass("white piece");
@@ -71,14 +68,14 @@ function tableClick(){
         $(this).addClass("black piece");
       }
       look($(this).attr("id"), true);
-
-      if(playerColor == "white"){
-        playerColor = "black";
-        $("#title").css("color", "black");
-      }else{
-        playerColor = "white";
-        $("#title").css("color", "white");
-      }
+      console.log(playerColor);
+      if(found){  if(playerColor == "white"){
+          playerColor = "black";
+          $("#title").css("color", "black");
+        }else{
+          playerColor = "white";
+          $("#title").css("color", "white");
+        }}
     }
     openSpots();
   })
@@ -99,11 +96,11 @@ function look(cell, real){
     $("#"+cell).removeClass("piece");
     $("#"+cell).removeClass("white");
     $("#"+cell).removeClass("black");
-    if(playerColor == "white")
-    playerColor = "black";
-    else
-    playerColor = "white";
-  }
+  //   if(playerColor == "white")
+  //   playerColor = "black";
+  //   else
+  //   playerColor = "white";
+   }
   end();
 }
 
@@ -285,25 +282,21 @@ function test(start, cell, event, real){
   var curCell = cell;
    if(!isPiece(curCell)){failed = true; }else{
      if(!failed){
-      //console.log(getColor(curCell));
+      //
        if(sameColor(curCell)){
-         
+         failed = true;
         if(real){
          for(var i = 0;i < array.length; i ++){
+          console.log(array, event);
            switchColor(array[i]);
-           console.log("flipped " + array[i] + " with " + event);
          }
-         failed = true;
         }else{
-          failed = true;
           if(array.length > 0){
             $("#"+start).addClass("possible");
-            console.log("valid move at " + start + " " + event + " , " + array+ ", " + getColor(array[0]));
             
           }
         }
        }else{
-         console.log("Just pushed " + curCell + ", " + getColor(curCell) + " from" + start);
          array.push(curCell);
        }
      }else{
@@ -311,4 +304,14 @@ function test(start, cell, event, real){
      }
      }
 }
-//k
+
+if(isTesting == false && start == true){
+  isTesting = true;
+  $("#D3").click();
+  $("#D4").click();
+  $("#E4").click();
+  $("#E3").click();
+  isTesting = false;
+  //playerColor = "white";
+  start = false
+}
