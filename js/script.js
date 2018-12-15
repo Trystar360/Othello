@@ -1,9 +1,10 @@
 var playerColor = "white";
-var isTesting = false;
+var isTesting = true;
 var w = window.innerWidth;
 var h = window.innerHeight;
 var gameDim = 0;
 var boardDim = 0;
+var array = [];
 resize();
 function resize(){
   w = window.innerWidth;
@@ -19,9 +20,6 @@ $(".gameBoard").width(boardDim);
 $(".gameBoard").height(boardDim);
 
 }
-var array = [];
-
-
 //an array with the first 8 letters un the alphabet
 var alph = ["A","B","C","D","E","F","G","H"];
 
@@ -49,10 +47,11 @@ $("table").width(boardDim);
 $(".cell").height(cellSize - 3.125);
 $(".cell").width(cellSize);
 if(!isTesting){
-  $("#D3").addClass("white piece");
-  $("#D4").addClass("black piece");
-  $("#E3").addClass("black piece");
-  $("#E4").addClass("white piece");
+  $("#D3").addClass("white piece flipped");
+  $("#D4").addClass("black piece flipped");
+  $("#E3").addClass("black piece flipped");
+  $("#E4").addClass("white piece flipped");
+  openSpots();
 }
 
 
@@ -93,6 +92,7 @@ function tableClick(){
     openSpots();
   })
 }
+
 var failed = false;
 var found = false;
 function look(cell, real){
@@ -224,18 +224,22 @@ function getColor(cell){
   
  return $("#"+cell).attr("class").substring(5,10);
 }
+
 function getRow(cell){
   return cell.substring(0,1);
 }
+
 function getCol(cell){
   return cell.substring(1);
 }
+
 function sameColor(cell){
   
   if(getColor(cell) == playerColor)
   return true;
   else return false;
 }
+
 function isPiece(cell){
   return $("#"+cell).hasClass("piece");
 }
@@ -291,8 +295,9 @@ function test(start, cell, event, real){
          }
          failed = true;
         }else{
-          
-          
+          if(array.length > 0){
+            $("#"+start).addClass("possible");
+          }
         }
        }else if(!sameColor(curCell)){
          array.push(curCell);
