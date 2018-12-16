@@ -1,8 +1,8 @@
 //the color of the current player
 var playerColor = "white";
 //true for testing
-var isTesting = false;
-
+var isTesting = true;
+var pMoves = [];
 var start = true;
 var w = window.innerWidth;
 var h = window.innerHeight;
@@ -78,6 +78,9 @@ function tableClick(){
         }}
     }
     openSpots();
+    if(start == false){
+      skip();
+    }
   })
 }
 
@@ -248,6 +251,7 @@ function switchColor(cell){
 }
 
 function openSpots(){
+  pMoves = [];
   for(var i = 0; i < 8; i++){
     for(var j = 0; j < 8; j++){
       var cell = alph[i] + j;
@@ -293,7 +297,7 @@ function test(start, cell, event, real){
         }else{
           if(array.length > 0){
             $("#"+start).addClass("possible");
-            
+            pMoves.push(start);
           }
         }
        }else{
@@ -314,4 +318,16 @@ if(isTesting == false && start == true){
   isTesting = false;
   //playerColor = "white";
   start = false
+}
+
+
+function skip(){
+  console.log(pMoves);
+  if(pMoves.length < 1){
+    if(playerColor == "white"){
+      playerColor = "black"
+    }else{
+      playerColor = "white";
+    }
+  }
 }
