@@ -1,7 +1,7 @@
 //the color of the current player
 var playerColor = "white";
 //true for testing
-var isTesting = true;
+var isTesting = false;
 //array for possible moves
 var pMoves = [];
 //used to ensure somthing happens only once on init
@@ -292,6 +292,7 @@ function openSpots(){
       
     }
   }
+
 }
 
 function end(){
@@ -350,10 +351,13 @@ function skip(){
   console.log(pMoves);
   if(pMoves.length < 1){
     if(playerColor == "white"){
-      playerColor = "black"
+      playerColor = "black";
+      $("#title").css("color", "black");
     }else{
       playerColor = "white";
+      $("#title").css("color", "white");
     }
+    openSpots();
   }
-  openSpots();
+  
 }
