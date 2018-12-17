@@ -1,15 +1,20 @@
 //the color of the current player
 var playerColor = "white";
 //true for testing
-var isTesting = true;
+var isTesting = false;
+//array for possible moves
 var pMoves = [];
+//used to ensure somthing happens only once on init
 var start = true;
+//Get the dimensions of the window. Used to size game 
 var w = window.innerWidth;
 var h = window.innerHeight;
 var gameDim = 0;
 var boardDim = 0;
+//An array used to add possible flips in look
 var array = [];
-resize();
+
+//Sets the game size according to the window dimensions 
 function resize(){
   w = window.innerWidth;
   h = window.innerHeight;
@@ -24,6 +29,8 @@ $(".gameBoard").width(boardDim);
 $(".gameBoard").height(boardDim);
 
 }
+resize();
+
 //an array with the first 8 letters un the alphabet
 var alph = ["A","B","C","D","E","F","G","H"];
 
@@ -43,6 +50,7 @@ function makeTable(x){
 //sizes the cells
 var cellSize = boardDim/x;
 
+//sets visual atributes atributes 
 $("#title").css("font-size", boardDim*.05)
 $("#title").css("letter-spacing", boardDim*.06);
 $("#title").css("padding-left", boardDim*.049);
@@ -54,12 +62,16 @@ $(".cell").width(cellSize);
 
 }
 makeTable(8);
-tableClick()
+
+//handles clicks on cells
 function tableClick(){
-  
+  //on the event of a cell being clicked on 
   $(".cell").click(function(){
     array = [];
     console.log("-----------new "+ playerColor + " turn-----------");
+    //white = black 
+    //black = white
+    //adds piece class 
     if(!$(this).hasClass("piece")){
       if(playerColor == "white"){
         $(this).addClass("white piece");
@@ -67,8 +79,9 @@ function tableClick(){
       if(playerColor == "black"){
         $(this).addClass("black piece");
       }
+      //runs look method on cell 
       look($(this).attr("id"), true);
-      console.log(playerColor);
+
       if(found){  if(playerColor == "white"){
           playerColor = "black";
           $("#title").css("color", "black");
@@ -83,9 +96,20 @@ function tableClick(){
     }
   })
 }
+tableClick()
 
+// used to ensure the look() method does not continue 
 var failed = false;
+
+//used to keep track of weather or not it is a valid move 
 var found = false;
+
+//looks in all directions for moves
+//@param cell
+//  the cell to start looking 
+//@param real
+//  real 
+//
 function look(cell, real){
   if(isTesting == false)
     found = false;
