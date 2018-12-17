@@ -24,7 +24,7 @@ if(w < h){
 }else{
   gameDim = h;
 }
-boardDim = gameDim - (gameDim * .15);
+boardDim = (gameDim - 41) - (gameDim * .15);
 $(".gameBoard").width(boardDim);
 $(".gameBoard").height(boardDim);
 

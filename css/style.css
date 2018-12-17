@@ -5,6 +5,7 @@ Darker: 02531D
  */
  body{
    background: #B2FFB3;
+   font-family: 'Bungee', cursive;
  }
 .gameBoard{
 
@@ -12,7 +13,7 @@ Darker: 02531D
   
 }
 #title{
-  font-family: 'Bungee', cursive;
+ 
   text-align: center;
   
   transition: font-size 2s;
@@ -66,4 +67,9 @@ when black player clicks
 }
 .possible{
   background: #02531D;
+}
+
+p{
+  text-align: left;
+  margin: 0;
 }
