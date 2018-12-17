@@ -1,7 +1,7 @@
 //the color of the current player
 var playerColor = "white";
 //true for testing
-var isTesting = false;
+var isTesting = true;
 //array for possible moves
 var pMoves = [];
 //used to ensure somthing happens only once on init
@@ -108,7 +108,7 @@ var found = false;
 //@param cell
 //  the cell to start looking 
 //@param real
-//  real 
+//  used to tell the method what to do when it finds that the move is good  
 //
 function look(cell, real){
   if(isTesting == false)
@@ -322,6 +322,7 @@ function test(start, cell, event, real){
           if(array.length > 0){
             $("#"+start).addClass("possible");
             pMoves.push(start);
+            skip();
           }
         }
        }else{
@@ -354,4 +355,5 @@ function skip(){
       playerColor = "white";
     }
   }
+  openSpots();
 }
