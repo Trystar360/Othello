@@ -51,7 +51,6 @@ class Game{
     makeTable(){
         //creates x rows
         for(var i = 0; i < 8; i++){
-            console.log(this.getAlph());
             $("#gameTable").append('<tr class="row" id="row' +this.alph[i]+ '"> </tr>');
         }
         //creates x cells inside the rows
