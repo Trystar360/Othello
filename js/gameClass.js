@@ -18,7 +18,7 @@ class Game{
         var alph = ["A","B","C","D","E","F","G","H"];
 
         // used to ensure the look() method does not continue 
-        var failed = false;
+        var  failed = false;
 
         //used to keep track of weather or not it is a valid move 
         var found = false;
@@ -36,28 +36,29 @@ class Game{
         this.w = window.innerWidth;
         this.h = window.innerHeight;
             this.gameDim = 0;
-        if(w < h){
-            this.gameDim = w;
+        if(this.w < this.h){
+            this.gameDim = this.w;
         }else{
-            this.gameDim = h;
+            this.gameDim = this.h;
         }
-        boardDim = (gameDim - 41) - (gameDim * .15);
-        $(".gameBoard").width(boardDim);
-        $(".gameBoard").height(boardDim);
+        this.boardDim = (this.gameDim - 41) - (this.gameDim * .15);
+        $(".gameBoard").width(this.boardDim);
+        $(".gameBoard").height(this.boardDim);
   
     }
 
     //when called, creates a table
     makeTable(){
         //creates x rows
-        for(var i = 0; i < x; i++){
-            $("#gameTable").append('<tr class="row" id="row' +alph[i]+ '"> </tr>');
+        for(var i = 0; i < 8; i++){
+            console.log(this.getAlph());
+            $("#gameTable").append('<tr class="row" id="row' +this.alph[i]+ '"> </tr>');
         }
         //creates x cells inside the rows
         for(var j = 0; j < x; j++){
             for(var i = 0; i < x; i++){
-                curRow = "row" +alph[j];
-                $("#"+curRow).append('<td class="cell " id="'+alph[j] + i +'"> </td>');
+                this.curRow = "row" +alph[j];
+                $("#"+curRow).append('<td class="cell " id="'+this.alph[j] + i +'"> </td>');
             }
         }
         //sizes the cells
@@ -75,21 +76,21 @@ class Game{
     }
 
     gameSetup(){
-        if(isTesting == false && start == true){
-            isTesting = true;
+        if(this.isTesting == false && this.start == true){
+            this.isTesting = true;
             $("#D3").click();
             $("#D4").click();
             $("#E4").click();
             $("#E3").click();
-            isTesting = false;
+            this.isTesting = false;
             //playerColor = "white";
-            start = false
+            this.start = false
           }
     }
 
     rowNumber(row){
-        for(var i = 0; i < alph.length; i++){
-            if(row == alph[i]){
+        for(var i = 0; i < this.alph.length; i++){
+            if(row == this.alph[i]){
                 return i;
             }
         }
@@ -128,7 +129,7 @@ class Game{
     end(){
         for(var i = 0; i < 8; i++){
             for(var j = 0; j < 8; j++){
-                var cell = alph[i] + j;
+                var cell = this.alph[i] + j;
                 if($("#"+cell).hasClass("flipped")){
                     $("#"+cell).removeClass("flipped")
                 }
